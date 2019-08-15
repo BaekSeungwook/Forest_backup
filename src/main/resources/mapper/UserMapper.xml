@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+	<sql id="selectUser">
+ 		select userId, userPwd, userName, userEmail, userEnroll, userTel, userAddr, userGrade, anqNo, from security_user
+ 	</sql>
+ 	
+ 	<select id="getAddressList" resultType="string">
+ 		select distinct userAddr from security_user
+ 	</select>
+ 	<select id="findUserListByAddress" resultType="userDTO">
+ 		select userId, userName from security_user
+ 		where userAddr = #{value}
+ 	</select>
+ 	
+ 	<select id="login" resultType="userDTO" parameterType="userDTO">
+ 		<include refid="selectUser"></include>
+ 		where userId = #{userId} and userPwd = #{userPwd}
+ 	</select>
+ 	<select id="getUserCount" resultType="int">
+ 		select count(*) from security_user
+ 	</select>
+ 	<update id="updateUser" parameterType="userDTO">
+		update security_user set userPwd = #{userPwd}, userName = #{userName}, userAddr = #{userAddr}
+		where userId = #{userId}
+	</update>
+	<insert id="registerUser" parameterType="userDTO">
+		insert into security_user(userId, userPwd, userName, userAddr)
+		values(#{userId}, #{userPwd}, #{userName}, #{userAddr})
+	</insert>
+	<select id="idcheck" resultType="string">
+		<!-- select count(*) from security_user where userId = #{value} -->
+		SELECT userId
+		FROM security_user
+		WHERE userId = #{value}
+	</select>
+	
+	<select id="findUserById" resultType="userDTO">
+ 		SELECT userId, userPwd, userName, userPwd
+		FROM security_user
+		WHERE userId = #{value}				
+ 	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

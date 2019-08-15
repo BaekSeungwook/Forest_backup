@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="authoritiesMapper">
+
+	<!-- 회원의 권한 검색하기 -->
+	<select id="selectAuthorityByUserName" parameterType="string" resultType="authorityDTO">
+		select username, role
+		from AUTHORITIES
+		where username=#{_parameter}
+	</select>
+
+	<!-- 권한 등록 -->
+	<insert id="insertAuthority" parameterType="authorityDTO">
+		insert into
+		AUTHORITIES(username, role)
+		values(#{username} , #{role})
+	</insert>
+
+</mapper>

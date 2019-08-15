@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="forestMapper">
+	
+
+	<select id="selectAll" resultType="forestDTO">
+	select forest_no, forest_name, forest_type, forest_addr, forest_tel, forest_url, forest_filename
+	from forest order by forest_no desc
+	</select>
+  
+	<select id="selectByForestNo" parameterType="int" resultType="forestDTO">
+	select forest_no, forest_name, forest_type, forest_facil, forest_addr, forest_tel, forest_url, forest_latitude, forest_longitude, forest_writer, forest_filename
+    from forest where forest_no=#{_parameter}
+	</select>
+	
+	<insert id="forestInsert" parameterType="forestDTO" >
+	insert into forest (forest_no, forest_name, forest_type, forest_facil, forest_addr, forest_tel, city, forest_filename, forest_writer)
+	values(forest_seq.nextval, #{forestName}, #{forestType}, #{forestFacil}, #{forestAddr}, #{forestTel}, #{city}, #{forestFilename}, #{forestWriter})
+	</insert>
+	
+	
+	<update id="forestUpdate" parameterType="forestDTO">
+	update forest set forest_name= #{forestName}, forest_type =#{forestType}, forest_facil =#{forestFacil}, forest_addr= #{forestAddr}, forest_tel =#{forestTel}, city =#{city}, forest_writer=#{forestWriter}, forest_filename=#{forestFilename}
+	where forest_no = #{forestNo}
+	</update>
+	
+	<delete id="forestDelete" parameterType="int">
+	delete from forest
+	where forest_no=#{forestNo}
+	</delete> 
+</mapper>

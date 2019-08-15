@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	
+	<bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="passwordEncoder"/>
+	
+	<!-- Spring Security 인증처리로직를 정의한 클래스 -->
+	<sec:http use-expressions="true" auto-config="true">
+	<sec:intercept-url pattern="/admin/**"  access="hasRole('ROLE_ADMIN')"/>
+	<sec:intercept-url pattern="/user/**"  access="isAuthenticated()"/>
+	<!-- <sec:intercept-url pattern="/**"  access="permitAll"/> -->
+	<sec:form-login
+		login-page="/user/loginForm"
+		login-processing-url="/j_spring_security_check"
+		username-parameter="id"
+		password-parameter="password"
+		default-target-url="/"
+		authentication-failure-handler-ref="userAuthenticationFailureHandler"
+	/>
+	 
+	<sec:logout
+		invalidate-session="true"
+		delete-cookies="JSESSIONID"
+		logout-url="/user/logout" 
+		logout-success-url="/"
+	/>
+</sec:http>
+
+<sec:authentication-manager>
+	<sec:authentication-provider ref="userAuthenticationProvider"/>
+</sec:authentication-manager>
+
+<context:component-scan base-package="kosta.forrest.security,kosta.forrest.model"/>    
+</beans>
+
