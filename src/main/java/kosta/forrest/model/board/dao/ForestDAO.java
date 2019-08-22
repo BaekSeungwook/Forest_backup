@@ -2,6 +2,7 @@ package kosta.forrest.model.board.dao;
 
 import java.util.List;
 
+import kosta.forrest.model.board.dto.Criteria;
 import kosta.forrest.model.board.dto.ForestDTO;
 
 public interface ForestDAO{
@@ -9,7 +10,7 @@ public interface ForestDAO{
 	/**
 	 * 휴양림정보 전체목록
 	 * */
-	List<ForestDTO> selectAll() ;
+	List<ForestDTO> selectAll(Criteria cri) ;
 
 	/**
 	 * 휴양림정보 상세보기
@@ -35,5 +36,10 @@ public interface ForestDAO{
 	 * 휴양림정보 수정
 	 * */
 	int update(ForestDTO forestDTO);
+
+	/**
+	 * 전체글의 갯수
+	 */
+	Integer getTotalCount(Criteria cri);
 
 }

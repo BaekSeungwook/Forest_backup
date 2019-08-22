@@ -68,12 +68,12 @@
 	content: "\e008";
 }
 
-.icon-heart:before {
+.icon-heart-before {
 	content: "\e009";
 }
 
 /* Filled heart */
-.icon-heart:after,
+.icon-heart-after,
 .icon-heart-2:before {
 	content: "\e00a";
 }
@@ -1348,7 +1348,6 @@
 }
 
 .btn-success:after {
-	content: "Success!";
 	-webkit-animation: moveUp 0.5s;
 	-moz-animation: moveUp 0.5s;
 	animation: moveUp 0.5s;

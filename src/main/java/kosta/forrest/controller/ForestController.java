@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.forrest.model.board.dto.Criteria;
 import kosta.forrest.model.board.dto.ForestDTO;
 import kosta.forrest.model.board.dto.LodgeDTO;
 import kosta.forrest.model.board.service.ForestService;
@@ -31,10 +32,12 @@ public class ForestController {
 	private String path="C:\\Edu\\springFileSave";
 	
 	@RequestMapping("/list")
-	public ModelAndView selectAll() {
-		System.out.println("ForestController의 selectAll호출");
+	public ModelAndView selectAll(Criteria cri) {
+		//System.out.println("ForestController의 selectAll호출");
+		//System.out.println("시작페이지 = "+cri.getStartPage()+"cri ::"+cri);
 		ModelAndView mv = new ModelAndView();
-		List<ForestDTO> list = forestService.selectAll();
+		List<ForestDTO> list = forestService.selectAll(cri);
+		mv.addObject("cri", cri);
 		mv.addObject("list", list);
 		mv.setViewName("forest/list");
 		

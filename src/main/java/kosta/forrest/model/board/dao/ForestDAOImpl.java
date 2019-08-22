@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kosta.forrest.model.board.dto.Criteria;
 import kosta.forrest.model.board.dto.ForestDTO;
 
 @Repository
@@ -17,8 +18,8 @@ public class ForestDAOImpl implements ForestDAO {
 	private SqlSession session;
 	
 	@Override
-	public List<ForestDTO> selectAll() {
-		List<ForestDTO> list = session.selectList("forestMapper.selectAll");
+	public List<ForestDTO> selectAll(Criteria cri) {
+		List<ForestDTO> list = session.selectList("forestMapper.selectAll", cri);
 		return list;
 	}
 
@@ -56,7 +57,12 @@ public class ForestDAOImpl implements ForestDAO {
 		int result = session.delete("forestMapper.forestDelete", forestNo);
 		return result;
 	}
-
-
-
+	
+	// 게시판 전체 글의 갯수 구하는 메서드
+	public Integer getTotalCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		System.out.println(getClass().getSimpleName()+".getTotalCount()");
+		return session.selectOne
+		("forestMapper.totalCount", cri);
+	}
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kosta.forrest.model.board.dao.ForestDAO;
+import kosta.forrest.model.board.dto.Criteria;
 import kosta.forrest.model.board.dto.ForestDTO;
 
 @Service
@@ -15,8 +16,12 @@ public class ForestServiceImpl implements ForestService {
 	private ForestDAO forestDAO;
 	
 	@Override
-	public List<ForestDTO> selectAll() {
-		List<ForestDTO> list = forestDAO.selectAll();
+	public List<ForestDTO> selectAll(Criteria cri) {
+		
+		// 페이지에 대한 계산을 한다.
+		cri.setTotalCount(forestDAO.getTotalCount(cri));
+		cri.calcData();
+		List<ForestDTO> list = forestDAO.selectAll(cri);
 		return list;
 	}
 

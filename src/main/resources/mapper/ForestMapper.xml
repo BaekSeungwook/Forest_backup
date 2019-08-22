@@ -6,8 +6,15 @@
 	
 
 	<select id="selectAll" resultType="forestDTO">
-	select forest_no, forest_name, forest_type, forest_addr, forest_tel, forest_url, forest_filename
-	from forest order by forest_no desc
+	select *
+		from(
+			select rownum rnum, forest_no, forest_name, forest_type, forest_addr, forest_tel, forest_url, forest_filename
+			from (
+				select forest_no, forest_name, forest_type, forest_addr, forest_tel, forest_url, forest_filename
+				from forest order by forest_no desc
+			)
+		)
+		where rnum between #{startRow} and #{endRow}
 	</select>
   
 	<select id="selectByForestNo" parameterType="int" resultType="forestDTO">
@@ -43,5 +50,15 @@
 	
 	<select id="lodgeAll" parameterType="int" resultType="lodgeDTO">
 	select * from lodge where forest_no=#{_parameter} order by lodge_code desc
+	</select>
+	
+	<!-- 전체 데이터의 갯수를 세는 처리 -->
+	<select id="totalCount" resultType="Integer">
+	select count(*) from forest
+	<!-- <where>
+		<if test="keyField!=null and keyWord!=null">
+				${keyField} like '%' || #{keyWord} ||'%'
+		</if>
+	</where> -->
 	</select>
 </mapper>

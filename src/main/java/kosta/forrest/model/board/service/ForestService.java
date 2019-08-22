@@ -2,13 +2,14 @@ package kosta.forrest.model.board.service;
 
 import java.util.List;
 
+import kosta.forrest.model.board.dto.Criteria;
 import kosta.forrest.model.board.dto.ForestDTO;
 
 public interface ForestService {
 	/**
 	 * 레코드 전체 검색
 	 * */
-	List<ForestDTO> selectAll() ;
+	List<ForestDTO> selectAll(Criteria cri) ;
 
 	/**
 	 * 휴양림번호에 해당하는 레코드 검색
