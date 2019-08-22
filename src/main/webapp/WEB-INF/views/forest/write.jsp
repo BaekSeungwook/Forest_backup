@@ -1,3 +1,4 @@
+<%@ include file="../include/topcontent.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -48,7 +49,7 @@ $(function(){
             <p align="right"><b><span style="font-size:12pt;">주요 시설</span></b></p>
         </td>
         <td width="450" height="20"><b><span style="font-size:12pt;">
-		<input type=text name="forestFacil" size="30" style="height: 100px"></span></b></td>
+		<textarea rows="4" name="forestFacil" size="30"></textarea></span></b></td>
     </tr>
 
     <tr>

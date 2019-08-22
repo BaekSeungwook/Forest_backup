@@ -1,5 +1,7 @@
 package kosta.forrest.model.board.dto;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -29,4 +31,6 @@ public class ForestDTO {
 	private String forestFilename;
 	
 	private MultipartFile forestFile;
+	
+	private List<LodgeDTO> lodgeList;
 }

@@ -1,3 +1,4 @@
+<%@ include file="../include/topcontent.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -6,6 +7,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="Creative Button Styles  - Modern and subtle styles &amp; effects for buttons" />
+<meta name="keywords" content="button styles, css3, modern, flat button, subtle, effects, hover, web design" />
+<meta name="author" content="Codrops" />
+<link rel="shortcut icon" href="../favicon.ico"> 
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/default.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/component.css" />
+	<script src="${pageContext.request.contextPath}/resources/js/modernizr.custom.js"></script> 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -17,6 +26,13 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.4.1.min.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
+
+/* body>*
+{
+	margin : 0px;
+	padding : 0px;
+	border : 0px solid #000000;
+} */
 .data:hover {
 	background: #f0f0f0;
 	cursor: pointer;
@@ -69,37 +85,77 @@ div.data:after {
 	display:block;
 	clear:both;
 }
+#keyWord{
+	height: 32px; width:100px; display: inline-block; vertical-align: middle; border-color: black;
+}
+
+#tables{
+	margin-top: 100px;
+}
 </style>
 <script type="text/javascript">
 $(function(){
 	$(".data").click(function(){
 		var forestNo=$(this).find("[name=forestNo]").val();
 		location="${pageContext.request.contextPath}/forest/read/"+forestNo;
-	})
+	});
+	
+	$("#searchBtn").click(function(){
+		location="${pageContext.request.contextPath}/forest/selectBySearch/"+
+					$("#keyField").val()+"/"+$("#keyWord").val();
+	});
+	
+	$("#insert").click(function(){
+		location="${pageContext.request.contextPath}/forest/write";
+	});
+	
+
+	
+	/* $("input[name='daterange']").daterangepicker({
+	    opens: 'left'
+	  }, function(start, end, label) {
+	    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+	}); */
 })
 </script>
 
+<script src="${pageContext.request.contextPath}/resources/js/classie.js"></script>
+	<script>
+		var buttons7Click = Array.prototype.slice.call( document.querySelectorAll( '#btn-click button' ) ),
+		totalButtons7Click = buttons7Click.length;
+		buttons7Click.forEach( function( el, i ) { el.addEventListener( 'click', activate, false ); } );
+		
+		function activate() {
+			var self = this, activatedClass = 'btn-activated';
+			if( !classie.has( this, activatedClass ) ) {
+				classie.add( this, activatedClass );
+				setTimeout( function() { classie.remove( self, activatedClass ) }, 1000 );
+			}
+		}
+	</script>	
 
 </head>
 <body>
+
 <c:set var="path" value="${pageContext.request.contextPath}" scope="application"/>
-<table align="center" border="0" class="w3-main w3-content w3-padding">
 
 <div style="margin-bottom: 10px">
 	<div align="center">
-		<button type="button" class="btn btn-info">
-			<a href="${path}/forest/write" style="font-size:large; color: white">휴양림정보 등록</a>
+		<button type="button" class="btn btn-info" id="insert" style="font-size:large;">
+			휴양림정보 등록
 		</button>
 	</div>
 
 	<div align="center" style="padding: 10px 0px;">
-		<select name="keyField"
+		<select name="keyField" id="keyField"
 			style="height: 32px; display: inline-block; vertical-align: middle;">
 			<option value="0">--선택--</option>
-			<option value="searchName">휴양림 이름</option>
-			<option value="searchLocation">지역</option>
-		</select> <input type="text" name="keyWord"
-			style="height: 32px; display: inline-block; vertical-align: middle;">
+			<option value="forest_name">휴양림 이름</option>
+			<option value="forest_addr">지역</option>
+		</select> 
+		<input type="text" name="keyWord" id="keyWord">
+		<!-- <input type="text" name="daterange" value="날짜선택"/> -->
+			
 		<button type="button" class="btn btn-default" id="searchBtn">
 			<i class="glyphicon glyphicon-search"></i>
 		</button>
@@ -151,15 +207,17 @@ $(function(){
 					</div>
 					
 				</div>
-				<br>
 				</div>
+				<section id="btn-click" style="text-align: right;">
+				<p>				
+					<button class="btn btn-2 btn-2i icon-heart">찜하기</button>
+				</p></section>
 				</li>
 			</c:forEach>
 			
 		</c:otherwise>
 	</c:choose>
 </ul>
-</table>
 
 </body>
 </html>

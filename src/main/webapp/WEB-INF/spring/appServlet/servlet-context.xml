@@ -26,21 +26,6 @@
 	
 	<context:component-scan base-package="kosta.forrest.controller" />
 	
-	<!-- 타일즈 등록 -->
-	<beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-	  <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
-	  <beans:property name="order" value="1"/> <!-- 우선순위 1번 -->
-	</beans:bean>
-	
-	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" id="tilesViewResolver"/>
-	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" id="tilesConfigurer">
-	  	<beans:property name="definitions">
-		    <beans:list>
-		     	 <beans:value>/WEB-INF/tiles/tiles.xml</beans:value> <!-- tiles를 적용할 문서 설정 -->
-		    </beans:list>
-	  </beans:property>
-	</beans:bean>
-	
 	
 	<!-- 업로드기능을 위한 설정 -->
 	<beans:bean id="multipartResolver"

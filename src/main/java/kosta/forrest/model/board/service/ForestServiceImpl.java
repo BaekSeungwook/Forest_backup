@@ -28,8 +28,8 @@ public class ForestServiceImpl implements ForestService {
 
 	@Override
 	public List<ForestDTO> selectBySearch(String keyWord, String keyField) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ForestDTO> list = forestDAO.selectBySearch(keyWord, keyField);
+		return list;
 	}
 
 	@Override

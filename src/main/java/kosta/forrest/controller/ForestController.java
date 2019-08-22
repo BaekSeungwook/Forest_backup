@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.forrest.model.board.dto.ForestDTO;
+import kosta.forrest.model.board.dto.LodgeDTO;
 import kosta.forrest.model.board.service.ForestService;
+import kosta.forrest.model.board.service.LodgeService;
 
 @Controller
 @RequestMapping("/forest")
@@ -22,6 +25,8 @@ public class ForestController {
 
 	@Autowired
 	private ForestService forestService;
+	@Autowired
+	private LodgeService lodgeService;
 	
 	private String path="C:\\Edu\\springFileSave";
 	
@@ -36,14 +41,32 @@ public class ForestController {
 		return mv;
 	}
 	
+	@RequestMapping("/lodgeAll")
+	@ResponseBody
+	public List<LodgeDTO> lodgeAll(int forestNo) {
+		//System.out.println("ForestController의 lodgeAll호출::"+forestNo);
+		List<LodgeDTO> list = lodgeService.selectAll(forestNo);
+		return list;
+	}
+	
 	//restful방식 이용
 	@RequestMapping("/read/{forestNo}")
 	public ModelAndView selectByForestNo(@PathVariable int forestNo) {
-		System.out.println("ForestController의 selectByForestNo호출 = " + forestNo);
+		//System.out.println("ForestController의 selectByForestNo호출 = " + forestNo);
 		ForestDTO dbDTO = forestService.selectByForestNo(forestNo);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("dto", dbDTO);
 		mv.setViewName("forest/read");
+		return mv;
+	}
+	
+	@RequestMapping("/selectBySearch/{keyField}/{keyWord}")
+	public ModelAndView selectBySearch(@PathVariable String keyField, @PathVariable String keyWord) {
+		//System.out.println("ForestController의 selectAll호출");
+		ModelAndView mv = new ModelAndView();
+		List<ForestDTO> list = forestService.selectBySearch(keyWord, keyField);
+		mv.addObject("list", list);
+		mv.setViewName("forest/list");
 		return mv;
 	}
 	

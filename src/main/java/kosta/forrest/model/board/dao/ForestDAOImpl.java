@@ -1,6 +1,8 @@
 package kosta.forrest.model.board.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,12 @@ public class ForestDAOImpl implements ForestDAO {
 
 	@Override
 	public List<ForestDTO> selectBySearch(String keyWord, String keyField) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		if(keyField!=null) map.put("keyField", keyField);
+		if(keyWord!=null) map.put("keyWord",keyWord);
+		List<ForestDTO> list = session.selectList("forestMapper.selectBySearch", map);
+		return list;
 	}
 
 	@Override

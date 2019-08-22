@@ -7,32 +7,32 @@ import kosta.forrest.model.board.dto.ForestDTO;
 public interface ForestDAO{
 
 	/**
-	 * ? ˆì½”ë“œ ? „ì²? ê²??ƒ‰
+	 * ÈŞ¾ç¸²Á¤º¸ ÀüÃ¼¸ñ·Ï
 	 * */
 	List<ForestDTO> selectAll() ;
 
 	/**
-	 * ëª¨ë¸ë²ˆí˜¸?— ?•´?‹¹?•˜?Š” ? ˆì½”ë“œ ê²??ƒ‰
+	 * ÈŞ¾ç¸²Á¤º¸ »ó¼¼º¸±â
 	 * */
 	ForestDTO selectByForestNo(int forestNo) ;
 	
 	/**
-	 * ?œ´?–‘ë¦¼ì´ë¦?, ì£¼ì†Œë³? ê²??ƒ‰
+	 * ÈŞ¾ç¸²Á¤º¸ Å°¿öµå°Ë»ö
 	 * */
 	public List<ForestDTO> selectBySearch(String keyWord, String keyField) ;
 
 	/**
-	 * ? ˆì½”ë“œ ?‚½?…
+	 * ÈŞ¾ç¸²Á¤º¸ µî·Ï
 	 * */
 	int insert(ForestDTO forestDTO);
 
 	/**
-	 * ëª¨ë¸ë²ˆí˜¸?— ?•´?‹¹?•˜?Š” ? ˆì½”ë“œ ?‚­? œ
+	 * ÈŞ¾ç¸²Á¤º¸ »èÁ¦
 	 * */
 	int delete(int forestNo);
 
 	/**
-	 * ëª¨ë¸ë²ˆí˜¸?— ?•´?‹¹?•˜?Š” ? ˆì½”ë“œ ?ˆ˜? •
+	 * ÈŞ¾ç¸²Á¤º¸ ¼öÁ¤
 	 * */
 	int update(ForestDTO forestDTO);
 

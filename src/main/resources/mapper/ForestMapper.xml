@@ -15,6 +15,16 @@
     from forest where forest_no=#{_parameter}
 	</select>
 	
+	<select id="selectBySearch" parameterType="map" resultType="forestDTO">
+	select forest_no, forest_name, forest_type, forest_addr, forest_tel, forest_url, forest_filename
+	from forest 
+    <where>
+	<if test="keyField!=null and keyWord!=null">
+			${keyField} like '%' || #{keyWord} ||'%'
+	</if>
+	</where>order by forest_no desc
+	</select>
+	
 	<insert id="forestInsert" parameterType="forestDTO" >
 	insert into forest (forest_no, forest_name, forest_type, forest_facil, forest_addr, forest_tel, city, forest_filename, forest_writer)
 	values(forest_seq.nextval, #{forestName}, #{forestType}, #{forestFacil}, #{forestAddr}, #{forestTel}, #{city}, #{forestFilename}, #{forestWriter})
@@ -30,4 +40,8 @@
 	delete from forest
 	where forest_no=#{forestNo}
 	</delete> 
+	
+	<select id="lodgeAll" parameterType="int" resultType="lodgeDTO">
+	select * from lodge where forest_no=#{_parameter} order by lodge_code desc
+	</select>
 </mapper>
